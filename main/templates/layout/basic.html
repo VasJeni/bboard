@@ -1,0 +1,60 @@
+{% load bootstrap4 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %} Головна {% endblock %} - Board</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    {% bootstrap_javascript jquery="slim" %}
+</head>
+<body class="container-fluid">
+
+<header class="mb-4">
+    <h1 class="display-1 text-center">Advertisement</h1>
+</header>
+<div class="row">
+    <ul class="col nav justify-content-end border">
+        <li class="nav-tem"><a href="#" class="nav-link">Sign up</a></li>
+        {% if user.is_authenticated %}
+        <li class="nav-link dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                         aria-haspopup="true"
+                                         aria-expanded="false">Profile</a>
+            <div class="dropdown-menu">
+                <a href="{% url 'main:profile' %}" class="dropdown-item">My advertisements</a>
+                <a href="#" class="dropdown-item">Change personal info</a>
+                <a href="#" class="dropdown-item">Change password</a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'main:logout' %}" class="dropdown-item">Quit</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">Delete</a>
+            </div>
+        </li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'main:login'%}" class="nav-link">Enter</a></li>
+        {% endif %}
+    </ul>
+</div>
+<div class="row">
+    <nav class="col-md-auto nav flex-column border">
+        <a href="{% url 'main:index' %}" class="nav-link root">Main</a>
+        <span class="nav-link root font-weight-bold">Real estate</span>
+        <a href="#" class="nav-link">Apartments</a><a href="#" class="nav-link">storage</a><a href="#" class="nav-link">garage</a>
+        <span class="nav-link root font-weight-bold">Transport</span>
+        <a href="#" class="nav-link">Cars</a><a href="#" class="nav-link">Trucks</a>
+        <a href="{% url 'main:other' page='about' %}" class="nav-link root">About site</a>
+    </nav>
+    <section class="col border py-2">
+        {% bootstrap_messages %}
+        {% block content %}
+        {% endblock %}
+    </section>
+</div>
+<footer class="mt-3">
+    <p class="text-right font-italic">&copy; readers.</p>
+</footer>
+</body>
+</html>

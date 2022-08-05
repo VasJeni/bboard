@@ -1,0 +1,15 @@
+{% extends 'layout/basic.html' %}
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+<h2>User profile {{user.username}}!</h2>
+{% if user.first_name and user.second_name %}
+<p>Hello {{ user.first_name }} {{ user.last_name }}!</p>
+{% else %}
+<p>Hello!</p>
+{% endif %}
+<h3>Your advertisements</h3>
+{% endblock %}
+
+
+
