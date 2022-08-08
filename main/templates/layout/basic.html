@@ -18,7 +18,7 @@
 </header>
 <div class="row">
     <ul class="col nav justify-content-end border">
-        <li class="nav-tem"><a href="#" class="nav-link">Sign up</a></li>
+        <li class="nav-tem"><a href="{% url 'main:register' %}" class="nav-link">Sign up</a></li>
         {% if user.is_authenticated %}
         <li class="nav-link dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                          aria-haspopup="true"
