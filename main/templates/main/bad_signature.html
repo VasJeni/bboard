@@ -1,0 +1,10 @@
+{% extends 'layout/basic.html' %}
+{% block title %}Activation error{% endblock %}
+
+{% block content %}
+<h2>Activations</h2>
+<p>
+    Activation user with this name have errors.
+</p>
+<p><a href="{% ulr 'main:register' %}">Register again</a></p>
+{% endblock %}

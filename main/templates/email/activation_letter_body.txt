@@ -1,0 +1,5 @@
+Dear user {{ user.username }}
+You are registered in application
+You need activeted your account in link {{ host }}{% url 'main:register_activate'  sign=sign%}
+Good luck!
+

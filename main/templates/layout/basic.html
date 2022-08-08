@@ -18,15 +18,15 @@
 </header>
 <div class="row">
     <ul class="col nav justify-content-end border">
-        <li class="nav-tem"><a href="#" class="nav-link">Sign up</a></li>
+        <li class="nav-tem"><a href="{% url 'main:register' %}" class="nav-link">Sign up</a></li>
         {% if user.is_authenticated %}
         <li class="nav-link dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                          aria-haspopup="true"
                                          aria-expanded="false">Profile</a>
             <div class="dropdown-menu">
                 <a href="{% url 'main:profile' %}" class="dropdown-item">My advertisements</a>
-                <a href="#" class="dropdown-item">Change personal info</a>
-                <a href="#" class="dropdown-item">Change password</a>
+                <a href="{% url 'main:profile_change' %}" class="dropdown-item">Change personal info</a>
+                <a href="{% url 'main:password_change' %}" class="dropdown-item">Change password</a>
                 <div class="dropdown-divider"></div>
                 <a href="{% url 'main:logout' %}" class="dropdown-item">Quit</a>
                 <div class="dropdown-divider"></div>
