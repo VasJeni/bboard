@@ -88,7 +88,7 @@ def user_activate(request, sign):
         template = 'main/user_is_activated.html'
     else:
         template = 'main/activation_done.html'
-        user.ia_active = True
+        user.is_active = True
         user.is_activated = True
         user.save()
     return render(request, template)
