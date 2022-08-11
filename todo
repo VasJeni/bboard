@@ -1,0 +1,7 @@
+реалізація скидання паролю
+
+1) створення контролерру з запитом логіна для скидування паролю
+2) створення html template for this controller
+3) на почту повинен надійти лист котрий запропонує перейти по посилнню і ввести новий пароль
+4) створити html template for this
+5) make new controller who get new password from user and set it in bd

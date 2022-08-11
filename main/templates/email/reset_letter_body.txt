@@ -1,0 +1,8 @@
+Dear user {{ user.username }}
+
+You make request to change password for user {{ user.username }}
+If you want change password please visit next link
+
+{{ protocol }}://{{ domain }}{% url 'main:password_reset_confirm' uidb64=uid token=token %}
+
+See you soon!

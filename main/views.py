@@ -4,7 +4,8 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.contrib import messages
 from django.contrib.auth import logout
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView, \
+    PasswordResetConfirmView, PasswordResetDoneView, PasswordResetCompleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
@@ -112,3 +113,24 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         if not queryset:
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
+
+
+class BBPasswordResetView(PasswordResetView):
+    template_name = 'main/password_reset.html'
+    success_url = reverse_lazy('main:password_reset_done')
+    subject_template_name = 'email/reset_letter_subject.txt'
+    email_template_name = 'email/reset_letter_body.txt'
+
+
+class BBPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'main/password_confirm.html'
+    success_url = reverse_lazy('main:password_reset_complete')
+
+
+class BBPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'main/password_reset_done.html'
+
+class BBPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'main/password_complete.html'
+
+
