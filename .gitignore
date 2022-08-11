@@ -237,5 +237,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-!/bboard.data
+bboard.data
 .idea
+main/migrations/
