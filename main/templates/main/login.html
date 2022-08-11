@@ -15,5 +15,6 @@
     <input type="hidden" name="text" value="{{ next }}" >
     {% buttons submit='Enter'%} {% endbuttons %}
 </form>
+<a href="{% url 'main:reset_password' %}">Forgot your password?</a>
 {% endif %}
 {% endblock %}
