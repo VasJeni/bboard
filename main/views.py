@@ -130,7 +130,10 @@ class BBPasswordResetConfirmView(PasswordResetConfirmView):
 class BBPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'main/password_reset_done.html'
 
+
 class BBPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'main/password_complete.html'
 
 
+def by_rubric():
+    pass
