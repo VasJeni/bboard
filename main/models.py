@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from utilites import get_timestamp_path
 
 
 # Create your models here.
@@ -55,3 +56,23 @@ class SubRubric(Rubric):
         verbose_name_plural = 'Subrubrics'
 
 
+class Bb(models.Model):
+    rubric = models.ForeignKey(SubRubric, on_delete=models.PROTECT, verbose_name='rubric')
+    title = models.CharField(max_length=40)
+    content = models.TextField()
+    price = models.IntegerField(default=0)
+    contacts = models.TextField()
+    image = models.ImageField(blank=True, upload_to=get_timestamp_path)
+    author = models.ForeignKey(AdvUser, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True, db_index=True, verbose_name='is active?')
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created')
+
+    def delete(self, *args, **kwargs):
+        for ai in self.additionalimage_set.all():
+            ai.delete()
+        super.delete(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'Advertisements'
+        verbose_name = 'Advertisement'
+        ordering = ['-created_at']
