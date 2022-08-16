@@ -27,7 +27,11 @@
             <h3><a href="{{ url }} {{ all }}">{{ bb.title }}</a></h3>
             <div>{{bb.content}}</div>
             <p class="text-right font-weight-bold">{{bb.price}}pounds</p>
-            <p class="text-right font-weight-bold">{{bb.created.at}}</p>
+            <p class="text-right font-weight-bold">created: {{bb.created.at}}</p>
+             <p class="text-right mt-2">
+            <a href="{% url 'main:profile_bb_change' pk=bb.pk %}">Исправить</a>
+            <a href="{% url 'main:profile_bb_delete' pk=bb.pk %}">Удалить</a>
+          </p>
         </div>
     </li>
     {% endfor %}
