@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>{% block title %} Головна {% endblock %} - Board</title>
+    <title>{% block title %} Main {% endblock %} - Board</title>
     {% bootstrap_css %}
     <link rel="stylesheet" href="{% static 'main/style.css' %}">
     {% bootstrap_javascript jquery="slim" %}
@@ -18,8 +18,8 @@
 </header>
 <div class="row">
     <ul class="col nav justify-content-end border">
-        <li class="nav-tem"><a href="{% url 'main:register' %}" class="nav-link">Sign up</a></li>
-        {% if user.is_authenticated %}
+
+        {% if user.is_activated %}
         <li class="nav-link dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                          aria-haspopup="true"
                                          aria-expanded="false">Profile</a>
@@ -30,10 +30,11 @@
                 <div class="dropdown-divider"></div>
                 <a href="{% url 'main:logout' %}" class="dropdown-item">Quit</a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">Delete</a>
+                <a href="{% url 'main:delete_profile' %}}" class="dropdown-item">Delete</a>
             </div>
         </li>
         {% else %}
+        <li class="nav-tem"><a href="{% url 'main:register' %}" class="nav-link">Sign up</a></li>
         <li class="nav-item"><a href="{% url 'main:login'%}" class="nav-link">Enter</a></li>
         {% endif %}
     </ul>

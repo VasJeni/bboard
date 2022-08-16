@@ -10,16 +10,23 @@ class ChangeUserInfoForm(forms.ModelForm):
 
     class Meta:
         model = AdvUser
-        fields = ('username', 'email', 'first_name', 'last_name', 'send_message')
+        fields = ('username', 'email', 'first_name', 'last_name', 'send_messages')
 
 
 class RegisterUserForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='email')
-    password1 = forms.CharField(required=True, widget=forms.PasswordInput,
+    password1 = forms.CharField(label='password', required=True, widget=forms.PasswordInput,
                                 help_text=password_validation.password_validators_help_text_html())
-    password2 = forms.CharField(label='password', widget=forms.PasswordInput, help_text='enter password one more time')
+    password2 = forms.CharField(label='repeat password', widget=forms.PasswordInput,
+                                help_text='enter password one more time')
 
     def clean_password(self):
+        password1 = self.cleaned_data['password1']
+        if password1:
+            password_validation.validate_password(password1)
+        return password1
+
+    def clean_password1(self):
         password1 = self.cleaned_data['password1']
         if password1:
             password_validation.validate_password(password1)
@@ -45,4 +52,5 @@ class RegisterUserForm(forms.ModelForm):
 
     class Meta:
         model = AdvUser
-        fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'send_message')
+        fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'send_messages')
+
