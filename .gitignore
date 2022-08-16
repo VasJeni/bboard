@@ -240,3 +240,8 @@ cython_debug/
 bboard.data
 .idea
 main/migrations/
+media/thumbnails/*.**
+media/*.**
+!/media/built-in_method_now_of_type_object_at_0x00007FFF47D68CD0_.webp
+!/media/built-in_method_now_of_type_object_at_0x00007FFF47D68CD0__h4BqScd.webp
+!/media/built-in_method_now_of_type_object_at_0x00007FFF47D68CD0__sy4AnKa.webp

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from utilites import get_timestamp_path
+from .utilites import get_timestamp_path
 
 
 # Create your models here.
@@ -8,6 +8,11 @@ from utilites import get_timestamp_path
 class AdvUser(AbstractUser):
     is_activated = models.BooleanField(default=True, db_index=True, verbose_name='is activated?')
     send_messages = models.BooleanField(default=True, verbose_name='Are you need notification about new comments?')
+
+    def delete(self, *args, **kwargs):
+        for bb in self.bb_set.all():
+            bb.delete()
+        super().delete(*args, **kwargs)
 
     class Meta(AbstractUser.Meta):
         pass
@@ -70,9 +75,18 @@ class Bb(models.Model):
     def delete(self, *args, **kwargs):
         for ai in self.additionalimage_set.all():
             ai.delete()
-        super.delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Advertisements'
         verbose_name = 'Advertisement'
         ordering = ['-created_at']
+
+
+class AdditionalImage(models.Model):
+    bb = models.ForeignKey(Bb, on_delete=models.CASCADE, verbose_name='Advertisement')
+    image = models.ImageField(upload_to=get_timestamp_path, verbose_name='Image')
+
+    class Meta:
+        verbose_name_plural = 'additional images'
+        verbose_name = 'additional image'
