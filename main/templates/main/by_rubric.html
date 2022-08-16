@@ -1,16 +1,22 @@
 {% extends 'layout/basic.html' %}
-{% block title %} Profile {% endblock %}
+
 {% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %} {{ rubric }} {% endblock %}
 
 {% block content %}
-<h2>User profile {{user.username}}!</h2>
-{% if user.first_name and user.second_name %}
-<p>Hello {{ user.first_name }} {{ user.last_name }}!</p>
-{% else %}
-<p>Hello!</p>
-{% endif %}
-<p><a href="{% url 'main:profile_bb_add' %}">add new advertisement</a></p>
-<h3>Your advertisements</h3>
+<h2 class="mb-2">{{rubric}}</h2>
+<div class="container-fluid mb-2">
+    <div class="row">
+        <div class="col">&nbsp;</div>
+        <form class="col-md-auto form-inline">
+            {% bootstrap_form form show_label=False %}
+            {% bootstrap_button content='Search' button_type='submit' %}
+        </form>
+    </div>
+</div>
 {% if bbs %}
 <ul class="list-unstyled">
     {% for bb in bbs %}
@@ -27,17 +33,11 @@
             <h3><a href="{{ url }} {{ all }}">{{ bb.title }}</a></h3>
             <div>{{bb.content}}</div>
             <p class="text-right font-weight-bold">{{bb.price}}pounds</p>
-            <p class="text-right font-weight-bold">created: {{bb.created.at}}</p>
-             <p class="text-right mt-2">
-            <a href="{% url 'main:profile_bb_change' pk=bb.pk %}">Исправить</a>
-            <a href="{% url 'main:profile_bb_delete' pk=bb.pk %}">Удалить</a>
-          </p>
+            <p class="text-right font-weight-bold">{{bb.created.at}}</p>
         </div>
     </li>
     {% endfor %}
 </ul>
+{% bootstrap_pagination page url=keyword %}
 {% endif %}
 {% endblock %}
-
-
-
