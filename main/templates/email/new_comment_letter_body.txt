@@ -1,0 +1,7 @@
+Dear user{{ user.username }}!
+
+One of your Advertisements have new comment. If you want to se him use the link
+
+{{ host }}{% url 'main:profile_bb_detail' pk=comment.bb.pk %}
+
+Bye. See you later.

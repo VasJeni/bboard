@@ -4,7 +4,8 @@ from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from .apps import user_registered
 from django.forms import inlineformset_factory
-from .models import Bb, AdditionalImage
+from .models import Bb, AdditionalImage, Comment
+from captcha.fields import CaptchaField
 
 
 class ChangeUserInfoForm(forms.ModelForm):
@@ -79,3 +80,20 @@ class BbForm(forms.ModelForm):
 
 
 AIFormSet = inlineformset_factory(Bb, AdditionalImage, fields='__all__')
+
+
+class UserCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ('is_active',)
+        widgets = {'bb': forms.HiddenInput}
+
+
+class GuestCommentForm(forms.ModelForm):
+    captcha = CaptchaField(label='write text from the image',
+                           error_messages={'invalid': 'wrong text'})
+
+    class Meta:
+        model = Comment
+        exclude = ('is_active',)
+        widgets = {'bb': forms.HiddenInput}
