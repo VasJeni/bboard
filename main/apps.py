@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 from django.dispatch import Signal
-from .utilites import send_activation_notification
+from .utilities import send_activation_notification
 
 
 class MainConfig(AppConfig):

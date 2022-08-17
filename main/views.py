@@ -14,13 +14,13 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django.core.signing import BadSignature
-from .utilites import signer
+from .utilities import signer
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Bb, SubRubric
-from .forms import SearchForm, BbForm, AIFormSet
-from .models import AdvUser
-from .forms import ChangeUserInfoForm, RegisterUserForm
+from .forms import SearchForm, BbForm, AIFormSet, ChangeUserInfoForm, RegisterUserForm, UserCommentForm, \
+    GuestCommentForm
+from .models import AdvUser, Comment
 from django.shortcuts import redirect
 
 
@@ -164,18 +164,40 @@ def by_rubric(request, pk):
 
 
 def detail(request, rubric_pk, pk):
-    bb = get_object_or_404(Bb, pk=pk)
+    bb = Bb.objects.get(pk=pk)
     ais = bb.additionalimage_set.all()
-    context = {'bb': bb, 'ais': ais}
+    comments = Comment.objects.filter(bb=pk, is_active=True)
+    initial = {'bb': bb.pk}
+    if request.user.is_authenticated:
+        initial['author'] = request.user.username
+        form_class = UserCommentForm
+    else:
+        form_class = GuestCommentForm
+    form = form_class(initial=initial)
+    if request.method == 'POST':
+        c_form = form_class(request.POST)
+        if c_form.is_valid():
+            c_form.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 'comment added')
+        else:
+            form = c_form
+            messages.add_message(request, messages.WARNING,
+                                 'comment does not added')
+    context = {'bb': bb, 'ais': ais, 'comments': comments, 'form': form}
     return render(request, 'main/detail.html', context)
+
+
+
 
 
 @login_required
 def profile_bb_detail(request, pk):
     bb = get_object_or_404(Bb, pk=pk)
     ais = bb.additionalimage_set.all()
-    context = {'bb': bb, 'ais': ais}
-    return render(request, 'main/detail.html', context)
+    comments = Comment.objects.filter(bb=pk, is_active=True)
+    context = {'bb': bb, 'ais': ais, 'comments': comments}
+    return render(request, 'main/profile_bb_detail.html', context)
 
 
 @login_required

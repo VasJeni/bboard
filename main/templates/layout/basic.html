@@ -25,7 +25,7 @@
                                          aria-expanded="false">Profile</a>
             <div class="dropdown-menu">
                 <a href="{% url 'main:profile' %}" class="dropdown-item">My advertisements</a>
-                <a href="{% url 'main:profile_change' %}" class="dropdown-item">Change personal info</a>
+                <a class="dropdown-item" href="{% url 'main:profile_change' %}" >Change personal info</a>
                 <a href="{% url 'main:password_change' %}" class="dropdown-item">Change password</a>
                 <div class="dropdown-divider"></div>
                 <a href="{% url 'main:logout' %}" class="dropdown-item">Quit</a>
