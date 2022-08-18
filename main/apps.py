@@ -8,7 +8,7 @@ class MainConfig(AppConfig):
     verbose_name = "Доска оголошень"
 
 
-user_registered = Signal(providing_args=['instance'])
+user_registered = Signal('instance')
 
 
 def user_registered_dispatcher(sender, **kwargs):
