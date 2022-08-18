@@ -188,9 +188,6 @@ def detail(request, rubric_pk, pk):
     return render(request, 'main/detail.html', context)
 
 
-
-
-
 @login_required
 def profile_bb_detail(request, pk):
     bb = get_object_or_404(Bb, pk=pk)
