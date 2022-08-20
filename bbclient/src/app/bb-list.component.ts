@@ -1,0 +1,17 @@
+import { Component, OnInit } from '@angular/core';
+import {BbService} from "./bb.service";
+
+@Component({
+  selector: 'app-bb-list',
+  templateUrl: './bb-list.component.html',
+  styleUrls: ['./bb-list.component.css']
+})
+export class BbListComponent implements OnInit {
+  private bbs: Object[];
+
+  constructor(private bbservice:BbService) { }
+
+  ngOnInit(): void {
+  }
+
+}
