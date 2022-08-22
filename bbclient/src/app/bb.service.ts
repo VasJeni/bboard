@@ -31,7 +31,7 @@ export class BbService {
                 'Authorization': 'Basic' + window.btoa(author+ ':' + 'password')})}
     return this.http.post<Object>(this.url + '/api/bbs/' + bb + '/comments/', comment, options).pipe(catchError(this.handleError()))
   }
-  getComment(pk: Number):Observable<Object[]> {
+  getComments(pk: Number):Observable<Object[]> {
     return this.http.get<Object[]>(this.url + '/api/bbs/' + pk + '/comments/')
   }
 }
