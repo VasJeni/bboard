@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+
 import {BbService} from "./bb.service";
 
 @Component({
@@ -25,8 +26,19 @@ export class BbDetailComponent implements OnInit {
     )
   }
 
+  submitComment() {
+    this.bbservice.addComment(this.bb.id, this.author, this.password, this.content).subscribe((comment: Object) => {
+        if (comment) {
+        this.content = ''
+          this.getComments()
+        }
+      }
+    )
+
+  }
+
   ngOnInit(): void {
-    const pk = this.ar.snapshot.params.pk;
+    const pk = this.ar.snapshot.params['pk'];
     this.bbservice.getBb(pk).subscribe((bb: Object) => {
       this.bb = bb;
       this.getComments()
